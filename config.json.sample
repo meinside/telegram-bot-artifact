@@ -1,0 +1,5 @@
+{
+	"token": "aaaabbbbcccc0123456789_abcdefg",
+	"monitor_interval_seconds": 1,
+	"verbose": false
+}
