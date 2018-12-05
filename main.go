@@ -39,9 +39,11 @@ Supported commands are as following:
 %s: Summarize current market information.
 %s: Show this help message.
 
-You can search for card info in other chats with:
+You can search for card info in chats with:
 
 *@%s [search keyword]*
+
+- Source code: https://github.com/meinside/telegram-bot-artifact
 `
 	messageHelpKor = `*도움말:*
 
@@ -52,11 +54,13 @@ _스팀 커뮤니티 장터_에서 *Artifact* 정보를 가져오는 Telegram Bo
 %s: 현재 장터 정보를 요약합니다.
 %s: 이 도움말을 표시합니다.
 
-다른 대화창에서
+대화창에서
 
 *@%s [검색어]*
 
 를 입력하여 카드 정보를 바로 조회, 인용할 수 있습니다.
+
+- 소스 코드: https://github.com/meinside/telegram-bot-artifact
 `
 	messageSummaryEng = `*Summary:*
 
@@ -80,6 +84,8 @@ _last update: %s_
 
 _마지막 갱신: %s_
 `
+
+	timestampFormat = `2006-01-02 (Mon) 15:04:05 MST`
 )
 
 const (
@@ -369,7 +375,7 @@ func getSummary(language a.Lang) string {
 		numUncommons, numUncommonCards, float32(priceUncommons)/100.0,
 		numRares, numRareCards, float32(priceRares)/100.0,
 		total, tax, total+tax,
-		lastUpdated.Format("2006-01-02 (Mon) 15:04:05"),
+		lastUpdated.UTC().Format(timestampFormat),
 	)
 }
 
