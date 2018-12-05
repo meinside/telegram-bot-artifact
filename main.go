@@ -80,6 +80,8 @@ _last update: %s_
 
 _마지막 갱신: %s_
 `
+
+	timestampFormat = `2006-01-02 (Mon) 15:04:05 MST`
 )
 
 const (
@@ -369,7 +371,7 @@ func getSummary(language a.Lang) string {
 		numUncommons, numUncommonCards, float32(priceUncommons)/100.0,
 		numRares, numRareCards, float32(priceRares)/100.0,
 		total, tax, total+tax,
-		lastUpdated.Format("2006-01-02 (Mon) 15:04:05"),
+		lastUpdated.UTC().Format(timestampFormat),
 	)
 }
 
