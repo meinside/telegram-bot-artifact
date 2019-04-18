@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"path"
+	"os"
 	"path/filepath"
-	"runtime"
 	"strings"
 	"sync"
 	"time"
@@ -18,7 +17,7 @@ import (
 
 const (
 	// config filename
-	confFilename = "./config.json"
+	confFilename = "config.json"
 
 	// cache ttl
 	cacheMinutes = 5
@@ -241,15 +240,16 @@ func init() {
 
 // read config file
 func readConfig() config {
-	_, filename, _, _ := runtime.Caller(0) // = __FILE__
-
-	var file []byte
 	var err error
-	file, err = ioutil.ReadFile(filepath.Join(path.Dir(filename), confFilename))
-	if err == nil {
-		var conf config
-		if err = json.Unmarshal(file, &conf); err == nil {
-			return conf
+
+	var execFilepath string
+	if execFilepath, err = os.Executable(); err == nil {
+		var file []byte
+		if file, err = ioutil.ReadFile(filepath.Join(filepath.Dir(execFilepath), confFilename)); err == nil {
+			var conf config
+			if err = json.Unmarshal(file, &conf); err == nil {
+				return conf
+			}
 		}
 	}
 
